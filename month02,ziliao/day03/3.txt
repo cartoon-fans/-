@@ -1,0 +1,52 @@
+前情回顾
+
+1. apt-get install  [app]
+   apt-get remove --purge [app]
+   dpkg  -i  [app]
+
+2. 用户管理
+   adduser  [user_name]
+   passwd  [user_name]
+   deluser  [user_name]
+   sudo  vipw
+
+3. ssh 服务
+   远程登录   ssh  username@ip
+   远程拷贝   scp
+   设置秘钥   ssh-keygen
+
+4. IO操作
+
+   文件   文本文件        字符串
+         二进制文件       字节串
+
+   str --> bytes    str.encode()
+   bytes --> str    bytes.decode()
+
+5. 文件读写
+
+   打开文件   open()  r  w   a   +
+   读文件    read()  readline()  readlines()  迭代
+   写文件    write()  writelines()
+   关闭     close()
+
+6.  with 操作
+
+
+练习1： 编写一个程序，向一个文件(log.txt)中不断写入内容
+       要求每2秒写入一行，每行内容：
+       1.  2019-11-11 18:19:10
+       2.  2019-11-11 18:19:12
+       3.  2019-11-11 18:19:14
+       4.  2019-11-11 18:36:18
+       如果程序结束，再次启动时要求序号能够衔接
+
+cookie：
+   import time
+   time.sleep(sec)
+   功能: 暂停程序执行sec秒
+
+作业： 1. 熟练套接字函数的使用
+      2. 总结 文件 读写操作
+
+

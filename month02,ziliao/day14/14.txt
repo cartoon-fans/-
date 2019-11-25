@@ -1,0 +1,108 @@
+前情回顾
+
+1. 表结构修改
+
+   alter  table  [tb] [add/drop/modify/change/rename]
+
+   alter  table [tb] add primary key(id)
+   alter  table [tb] drop primary key
+
+2. 时间类型
+   date
+   datetime
+   time
+   year
+   timestamp
+
+   时间函数： now()  curtime()  curdate()
+
+   时间操作： 比较大小  排序   加减计算
+
+3. 高级查询
+
+   模糊   like    %   _
+
+   正则   regexp
+
+   重命名   as
+
+   排序    order by  [desc]
+
+   限制    limit
+
+   联合查询   union   [all]
+
+   子查询    * from 后   * where语句中
+
+4. 聚合操作
+
+   * select 语句的执行顺序
+   * 聚合函数  avg()  max()  min()  sum()  count()
+   * 分组 group by
+         select 分组的字段/聚合函数 from .....
+   * 聚合筛选 having
+   * 去重  distinct
+   * 聚合运算
+
+5. 索引操作
+
+   优点： 提高查询效率
+   缺点： 消耗额外存储空间，可能影响数据的写入效率
+
+   什么时候不适合创建索引： 数据量小， 经常写操作而不是查找操作时候
+
+   三类 ：  primary key    index   unique
+
+   增加索引: create index [index_name] on  [tb(col)]
+
+   查看
+   desc tb --> key
+   show index from [tb]
+
+
+练习： 建立 用户 --》 朋友圈 --》 评论 的三表关系
+
+create table user (id int primary key auto_increment,name varchar(32) not null,passwd char(128),phone char(18),r_time datetime);
+
+create table pyq (id int primary key auto_increment,image mediumblob,comment text,site varchar(50),tm datetime,u_id int,constraint user_fk foreign key(u_id) references user(id));
+
+create table user_pyq (id int primary key auto_increment,u_id int,p_id int,comment text,mlike char,constraint user_fk1 foreign key(u_id) references user(id),constraint pyq_fk foreign key(p_id) references pyq(id));
+
+注意： 表链接查询时如果是左连接查询则大表做左表，右连接查询则大表做右表
+
+练习：  使用cls1  和 interest
+
+       1. 查看报兴趣班的同学他们的姓名和兴趣
+       select c.name,i.hobby from cls1 as c inner join interest as i on c.name = i.name;
+
+       2. 获取班级所有同学的姓名，并且查看哪些同学报了兴趣班，兴趣班是什么
+        select c.name,i.hobby from cls1 as c left join interest as i on c.name = i.name;
+
+       3. 查看所有兴趣班类型 和价格，并且看一下哪些同学报了名
+
+       select i.hobby,i.price,c.name from cls1 as c right join interest as i on i.name=c.name;
+
+作业:  使用books --》 book表进行改写
+
+       作者表
+       出版社表
+       图书表
+
+       * 设计三个表的内容
+       * 画出ER模型表达表的实体，属性和关系
+       * 根据ER模型创建三个表
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

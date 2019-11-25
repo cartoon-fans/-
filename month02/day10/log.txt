@@ -1,0 +1,6 @@
+Sat Nov  9 12:19:09 2019:timed out
+Sat Nov  9 12:19:12 2019:[Errno 9] Bad file descriptor
+Sat Nov  9 12:19:15 2019:[Errno 9] Bad file descriptor
+Sat Nov  9 12:19:18 2019:[Errno 9] Bad file descriptor
+Sat Nov  9 12:19:21 2019:[Errno 9] Bad file descriptor
+Sat Nov  9 12:19:24 2019:[Errno 9] Bad file descriptor

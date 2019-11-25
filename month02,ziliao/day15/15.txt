@@ -1,0 +1,89 @@
+前情回顾
+
+1. 外键约束
+
+   B表（字段） -foreign key->   A表（主键）
+
+   从表                        主表
+
+   多                          一
+
+   constraint [fk_name] foreign key [字段] references [关联表](主键)
+   on delete [cascade/set null]
+
+   级联动作 ： restrict : 主表不允许改删
+             cascade： 主表改删从表也随之改删
+             set null: 主表改删从表对应值变为null
+
+2.  表关联关系
+
+    一对一
+
+    一对多: 在‘多’表中创建外键关联
+
+    多对多: 增加关系表 设置和需要关联的两个表的外键关系
+
+3. 表关联查询
+
+   内连接 ： [tb1] inner join [tb2] on  条件
+   左连接 ： [tb1] left join [tb2] on  条件
+   右连接 ： [tb1] right join [tb2] on  条件
+
+
+* 使用books --》 book表进行改写
+
+       作者表
+       出版社表
+       图书表
+
+       * 设计三个表的内容
+       * 画出ER模型表达表的实体，属性和关系
+       * 根据ER模型创建三个表
+
+      create table `出版社` (id int primary key auto_increment,名称 varchar(64),创刊日期 date,地址 varchar(256));
+
+      create table `作家` (id int primary key auto_increment,姓名 varchar(32),性别 enum('f','m'),风格 text);
+
+       create table `图书` (id int primary key auto_increment,书名 varchar(32),价格 float,出版日期 date,p_id int,a_id int,constraint p_fk foreign key(p_id) references `出版社`(id),constraint a_fk foreign key(a_id) references `作家`(id));
+
+      create table publication_author (publication_id int not null,author_id int not null,`签约时间` datetime default now(),primary key(author_id,publication_id),constraint author_fk foreign key(author_id) references 作家(id),constraint publication_fk foreign key(publication_id) references 出版社(id));
+
+
+局部变量
+
+使用set对变量进行赋值
+create function f2() returns int begin declare a int; set a = (select score from cls1 where name='Joy'); return a; end$$
+
+使用into关键字对变量赋值
+create function f3() returns int begin declare a int; select score into a from cls1 where name='Joy'; return a; end$$
+
+练习 ： 使用cls1 表完成
+
+       1. 编写一个函数，传入两个人的id，返回两个人的分数差
+     create function fc4(uid1 int,uid2 int) returns float
+     begin
+         set @val1=(select score from cls1 where id=uid1);
+         set @val2=(select score from cls1 where id=uid2);
+         set @r=@val1-@val2;
+         return @r;
+     end$$
+
+       2. 编写一个存储过程，传入学生id,通过out类型的参数，在存储过程之外获取该学生的年龄
+       create procedure get_age(in uid int,out num int)
+    -> begin
+    -> declare val int;
+    -> select age into val from cls1 where id=uid;
+    -> set num=val;
+    -> end $$
+
+作业 ： 1. 将数据库部分进行总结
+       2. 数据库第三四两天内容，面试前要看
+       3. 文件操作， 网络，并发，多路复用，函数，类，http
+
+
+
+
+
+
+
+

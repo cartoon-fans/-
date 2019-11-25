@@ -1,0 +1,45 @@
+练习：
+
+1. 创建数据库 books
+  create database books charset=utf8;
+
+2. 在数据库中创建表 book 结构如下
+   id   title   author  price   publication  comment
+
+   create table book (id int primary key auto_increment,title varchar(64) not null,author varchar(32) not null,price decimal(5,2),publication varchar(32),comment text);
+
+3. 插入若干数据
+   price： 30---80
+   出版社： 中国教育   机械工业   人民教育  中国文学
+
+   insert into book values (4, '狂人日记','鲁迅',47.6,' 机械工业出版社','我本狂人');
+
+4.   查找所有40多元的图书
+     select * from book where price between 40 and 49.9;
+
+     查找鲁迅写的机械工业出版社出版的图书
+     select * from book where author='鲁迅' and publication='机械工业出版社';
+
+     查找备注不为空的图书
+     select * from book where comment is not null;
+
+     查找价格大于50的图书，只看书名和价格
+     select title,price from book where price>50;
+
+     查找老舍写的或者出版社是中国文学出版社的图书
+     select * from book where author='老舍' or publication='中国文学出版社';
+
+作业： 1. 熟练mysql语句：
+         数据库创建
+         数据表创建
+         增删改查
+
+      2. 订单数据表如何创建
+
+
+
+
+
+
+
+

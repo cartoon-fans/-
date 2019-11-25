@@ -1,0 +1,38 @@
+前情回顾
+
+1. tcp套接字编程
+
+服务端： socket()->bind()->listen()->accept()->recv/send->close()
+
+客户端: socket()->connect()->send/recv->close()
+
+* 缓冲区  协调数据发送接收速度
+* 粘包   多次发送内容被一次接收
+* recv  当连接端不存在的时候会立即返回空
+
+2. udp套接字
+
+服务端流程 ： socket()->bind()->recvfrom/sendto->close()
+客户端流程 ： socket()->sendto/recvfrom->close()
+
+3. 套接字属性：fileno()  getpeername() setsockopt()
+
+4. tcp / udp 区别
+
+5. struct 模块
+
+   Struct(fmt)
+   pack()
+   unpack()
+
+练习： 求1--100000以内质数之和，并统计整个过程所用的时间
+      温馨提示： 将求和过程封装为函数
+               通过装饰器获取函数执行时间即可
+      质数：只能被1和它本身整除的整数，1不是质数
+
+作业： 1. 网络编程函数写一遍
+      2. fork理解
+      3. 函数，类复习 （做一些算法练习）
+
+         leetcode
+

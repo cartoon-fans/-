@@ -1,0 +1,135 @@
+前情回顾
+
+1. 基础概念
+
+   * 什么是数据库
+   * 数据库分类 ：  关系型 & 非关系型
+                  开源 & 非开源
+
+   * 数据库  database
+   * 表  table
+   * 字段  column
+   * 记录  row
+   * 主键 primary key
+
+2. mysql   （开源，c/c++, 关系型）
+
+   * 安装
+
+3.  SQL语句
+
+    * 关系型数据库都用它
+    * 每句结尾加个；
+    * 不区分字母大小写
+
+4.  * 数据库
+      create database [db_name];
+      show databases;
+      select database();
+      show create database [db];
+      use [db];
+      drop database [db];
+
+     * 数据表
+
+       show tables;
+       create table [tb_name] (col1 type,col2 type..);
+
+            约束 ：  not null
+                    default [val]
+                    unsigned
+                    auto_increment
+                    primary key
+
+            数据类型:
+
+                 数字： 整数   小数    布尔
+
+                 字符串：  char  varchar  text  blob
+                          enum  set
+
+       desc [tb];
+       show create table [tb];
+       drop table [tb];
+
+     * 增删改查
+
+       insert into [tb] [col1,col2..] values [val1,val2];
+
+       delete from [tb] where ...;
+
+       update [tb] set [col=val,...] where ...;
+
+       select [*,col1,...] from [tb] where ...;
+
+            * where 子句
+              算数运算符  + - ×  / %
+              比较运算符  > < >=  <= !=  between  is  in
+              逻辑运算符  and  or  not  xor
+
+练习：  使用book表
+
+       1. 将骆驼祥子的价格改为 45元
+            update book set price=45 where title='骆驼祥子';
+       2. 增加一个字段出版日期， 类型为date 放在出版社字段后面
+           alter table book add publication_time date after publication;
+       3. 修改鲁迅写的图书出版日期均为 2000-10-1
+           update book set publication_time='2000-10-1' where author='鲁迅';
+       4. 其他图书出版日期均为 2005-1-1
+           update book set publication_time='2005-1-1' where not author='鲁迅';
+       5. 删除价格在60元以上或者40元以下的图书
+           delete from book where price not between 40 and 60;
+
+
+练习：
+  1. 创建表：  sanguo
+   id  name   gender(性别)  country  attack(攻击)  defense(防御)
+                                     >100         0-100
+   create table sanguo (id int primary key auto_increment,name varchar(32) not null,gender enum('男','女'),country enum('魏','蜀','吴'),attack smallint,defense tinyint default 0);
+
+  2. 插入若干数据
+   魏   司马懿  夏侯渊  张辽  甄姬
+   蜀   诸葛亮  孙尚香  张飞  赵云  黄忠
+   吴   周瑜  陆逊  小乔  大乔
+
+   insert into sanguo (name,gender,country,attack,defense) values ('张飞','男','蜀',378,82);
+
+  3. 综合练习
+    查找所有蜀国人信息
+    select * from sanguo where country='蜀';
+    将赵云攻击力设置为360 防御为68
+    update sanguo set attack=360,defense=68 where name='赵云';
+    将吴国英雄攻击力超过300的改为300，防御改为60
+    update sanguo set attack=300,defense=60 where country='吴' and attack > 300;
+    查找攻击高于250的英雄名字和攻击力
+    select name,attack from sanguo where attack > 250;
+
+    将所有英雄按照攻击力排名，攻击里如果相同按照防御力排名
+    select * from sanguo order by attack desc,defense desc;
+
+    查找魏蜀两国中名字为三个字的英雄，防御力按照升序排序
+    select * from sanguo where name like '___' and country in ('魏','蜀') order by defense;
+
+    找到吴国攻击力前2名的英雄，且性别不能为null
+    select * from sanguo where country='吴' and gender is not null order by attack desc limit 2;
+
+    找到蜀国中攻击力比魏国中攻击力最大的英雄还强大的所有英雄
+     select * from sanguo where attack > (select attack from sanguo where country='魏' order by attack desc limit 1) and country='蜀';
+
+作业: 1. 巩固今天的语句  alter  高级查询   聚合  索引
+     2. 练习没做完再写一下
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
